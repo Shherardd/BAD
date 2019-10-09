@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const url = require('url');
 const path = require('path');
 
@@ -13,18 +13,28 @@ if (process.env.NODE_ENV !== 'production'){
 let mainWindow;
 let nuevaVentana;
 
+
+
 app.on('ready', () => {
     mainWindow = new BrowserWindow({
-        title: 'data2info'
+        width: 1280,
+        height: 720,
+        resizable : false,
+        title: 'BAD',
+        webPreferences: {
+            nodeIntegration: true
+        }
     });
+    //mainWindow.webContents.openDevTools()
     mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'views/index.html'),
+        pathname: path.join(__dirname, 'views/login.html'),
         protocol: 'file',
         slashes: true
     }));
 
     const mainMenu = Menu.buildFromTemplate(templateMenu)
     Menu.setApplicationMenu (mainMenu);
+
     mainWindow.on('close', () => {
         app.quit();
     })
@@ -32,16 +42,17 @@ app.on('ready', () => {
 
 function crearNuevaVentana () {
     nuevaVentana = new BrowserWindow({
-        width: 400,
-        height: 330,
+        width: 600,
+        height: 400,
         title: 'Nueva Ventana'
     })
     nuevaVentana.setMenu(null);
-    nuevaVentana.loadURL(url.format({
+    /*nuevaVentana.loadURL(url.format({
         pathname: path.join(__dirname, 'views/nueva_ventana.html'),
         protocol: 'file',
         slashes: true
-    }));
+    }));*/
+    nuevaVentana.loadURL('https://www.google.com')
     nuevaVentana.on('closed', () => {
         nuevaVentana = null;
     })
@@ -62,5 +73,45 @@ const templateMenu = [
     },
     {
         label:'Editar'
+    },
+    {
+        label: 'Opciones',
+        submenu: [
+            {
+                label: 'Cerrar Sesion',
+                click(){
+                    mainWindow.loadURL(url.format({
+                        pathname: path.join(__dirname, 'views/login.html'),
+                        protocol: 'file',
+                        slashes: true
+                    }));
+                }
+            }
+        ]
     }
 ]
+
+if(process.env.NODE_ENV !== 'production'){
+    templateMenu.push({
+        label:'DevTools',
+        submenu:[
+            {
+                label: 'Show',
+                click(item, focusedWindow) {
+                    focusedWindow.toggleDevTools()
+                    //mainWindow.webContents.openDevTools()
+                }
+            },
+            {
+                label: 'hide',
+                click(item, focusedWindow){
+                    focusedWindow.closeDevTools()
+                }
+            },
+            {
+                role: 'reload'
+            }
+        ]
+    })
+
+}

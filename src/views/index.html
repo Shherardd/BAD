@@ -4,20 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="white.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.cs">
-    <title>CRM</title>
-</head>
-<body>
-    
-        <div style="width: 75%;">
-        <canvas id="myChart"></canvas>
-        </div>
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.cs"> -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+ 
     
 
+    <title>BAD</title>
+</head>
+<body>
+        <div class="row p-0 m-0" style="height: 671px;">
+            <div class="col-2 ">                    
+                <nav  class="BarraLateral">                    
+                    <ul>
+                        <li><a href="Grafica.html" class="select"><i class="fas fa-chart-pie"></i>Inicio</a></li>
+                        <li><a href="Ajustes.html"><i class="fas fa-cog"></i>Ajustes</a></li>
+                        <li><a href="usuario.html"><i class="fas fa-user"></i>Usuario</a></li>
+                        <li><a href="login.html" class="sesion"><i class="fas fa-user"></i>Cerrar Sesion</a></li>
+                    </ul>                    
+                </nav>
+                    
+            </div>
+            
+            <div class="col-10" style="background-color: #eeeeee">
+                    <div class="d-flex flex-wrap">                                                   
+                        <div class="d-flex justify-content-start"><div class="cubo">                            
+                                  
+                            <canvas id="myChart" style="z-index: 100;"></canvas>   
+                            <p class="p-1 ml-5">Interpretacion:</p>  
+                            <div class="fondo"></div>  
+                            
+                                                     
+                        </div>
+                    </div>
+                        <div class="d-flex justify-content-start"><div class="cubo2">
+                                <div id="products" class="p-3" >
+                                        <button class="btn btn-primary btn-block" id="boton">Action</button>
+                                        <a href="nueva_ventana.html">Go to page</a>
+                                    </div>
+
+                        </div>
+                    </div>
+                        <div class="d-flex justify-content-start"><div class="cubo3">
+                                <canvas id="myChart2" style="z-index: 100;"></canvas>  
+
+                        </div></div>
+                        <div class="d-flex justify-content-start"><div class="cubo4"></div></div>
+                    </div>
+                
+                <div class="container p-4">
+                    
+                </div>
+            </div>
+        </div>
+
+
 <script>
+    const {electron, browserWindow} = require('electron');
+    const products = document.querySelector('#products');
+
+    function llamadaBaseDatos(query, callback){
+        var mysql = require('mysql');
+        var conn = mysql.createConnection({
+            host : 'localhost',
+            user : 'root',
+            password : '',
+            database : 'dbsistemalaravel'
+        });
+        let resultado = '';
+        conn.query(query, function(error,results,fields) {
+            if (error) throw error;
+            //console.log(results[0].nombre);
+            //objeto = results[0].nombre;
+            return callback(results);
+        });
+        conn.end();        
+        
+    }
+
+
+    const btn = document.getElementById('boton');
+    btn.addEventListener("click", e => {        
+               
+    });
+
+
+    
    
     let myChart = document.getElementById('myChart').getContext('2d');
+    let myChart2 = document.getElementById('myChart2').getContext('2d');
 
     var colors = [
         'rgba(255, 99, 132, 0.6)',
@@ -33,10 +109,65 @@
         Chart.defaults.global.defaultFontSize = 18;
         Chart.defaults.global.defaultFontColor = '#777';
 
-    let massPopChart = new Chart(myChart, {
-        type: 'bar', // bar, horizontalBar, pie, line doughnut, radar, polarArea
+        function cargaInicial() {
+            console.log("pagina cargada");
+            var query = 'SELECT * FROM `categorias`' 
+            llamadaBaseDatos(query, function(result){
+            objeto = result;
+            console.log(objeto);
+            let massPopChart = new Chart(myChart, {
+        type: 'horizontalBar', // bar, horizontalBar, pie, line doughnut, radar, polarArea
         data: {
-            labels:['CDMX', 'GDL', 'MTY', 'TGZ', 'OAX', 'QRO'],
+            labels:[objeto[1].nombre, objeto[1].condicion, objeto[1].descripcion],
+            datasets: [{
+                label: 'Population',
+                data: [617594, 181045, 153060, 106519, 105162, 95072],
+                backgroundColor: colors,
+                borderWidth:2,
+                borderColor: '#777',
+                hoverBorderWidth:3,
+                hoverBorderColor: '#000'
+            }
+        ],
+            
+
+        },
+        options: {
+            title:{
+                display:true,
+                text: 'Ciudades de Mexico',
+                fontSize: 25
+            },
+            legend: {
+                display:true,
+                position: 'right',
+                labels: {
+                    fontColor: 'black'
+                }
+            },
+            layout: {
+                padding: {
+                    left:50,
+                    right: 0,
+                    bottom: 0,
+                    top: 0
+                }
+            },
+            tooltips:{
+                enabled: true
+            }
+        }
+    });
+
+
+        });
+        }
+        window.onload = cargaInicial;
+
+        let massPopChart2 = new Chart(myChart2, {
+        type: 'pie', // bar, horizontalBar, pie, line doughnut, radar, polarArea
+        data: {
+            labels:['','','',''],
             datasets: [{
                 label: 'Population',
                 data: [617594, 181045, 153060, 106519, 105162, 95072],

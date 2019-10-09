@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="white.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.cs"> -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <title>BAD</title>
+</head>
+<body style="">
+    <div class="d-flex justify-content-center">
+    <img src="C:\Users\galet\Desktop\Apps\BAD\src\media\App.png" alt="" class='w-25' style="">
+    </div>
+    <div class="d-flex justify-content-center p-2 ml-5 ">
+    <div  style="border-radius: 2%; background-color: rgba(13, 230, 175, 0.08); position:absolute; width: 30%; height: 50%; z-index: -5;"></div>
+    
+    <form class="p-4 w-25 ">
+        
+        <h3>Iniciar Sesion</h3><br>
+        <div class="form-group">
+            <input type="text" id="user" class="form-control" placeholder="Usuario">
+            
+        </div>
+        <div class="form-group">
+            <input type="password" id="password" class="form-control" placeholder="Contrasena">
+            <p id="aviso" class="text-danger"></p>
+        </div>
+        <div>
+            <button class="btn btn-primary btn-block" id="boton">Entrar</button>
+        </div>
+        <div><br>
+                <button class="btn btn-primary" id="switch" onclick="switchBG('black.css', 0)">Negro</button>
+                <button class="btn btn-secondary" id="switch" onclick="switchBG('white.css', 0)">Blanco</button>
+        </div>
+    </form>
+</div>
+
+    <script>
+        const btn = document.getElementById('boton');
+        btn.addEventListener('click', e => {
+            let pssw = '123';
+            let usr = 'admin'
+            var usuario = document.getElementById('user').value;
+            var contrasena = document.getElementById('password').value;
+            var aviso = document.getElementById('aviso');
+            if(usuario == "" || contrasena == ""){
+                aviso.innerHTML = "No puedes dejar campos vacios";
+            }else{
+                if(pssw == contrasena && usr == usuario){
+                    window.location.href="index.html"
+                }else{
+                    
+                    aviso.innerHTML = "usuario o contrasena incorrectos";
+                }
+            }
+            
+        })
+        const form = document.querySelector('form');
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+        })
+        function cargaInicial() {
+            console.log("pagina cargada");
+        }
+        window.onload = cargaInicial;
+
+        function switchBG(cssFile, cssLinkIndex){
+            var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
+
+            var newlink = document.createElement("link");
+            newlink.setAttribute("rel", "stylesheet");
+            newlink.setAttribute("type", "text/css");
+            newlink.setAttribute("href", cssFile);
+
+            document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
+
+        }
+    </script>
+
+</body>
+</html>

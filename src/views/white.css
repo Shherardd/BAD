@@ -1,0 +1,130 @@
+.BarraLadteral{
+    margin: 0 0;
+    
+    background-color: rgb(255, 255, 255);
+
+    width: 10%;
+    height: 100vh;
+
+    -webkit-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
+}
+
+.BarraLateral ul{
+    margin: 0 0;
+
+    display: contents;
+    text-align: center;
+    list-style-type: none;
+}
+
+.BarraLadteral li{
+    
+        list-style-type: none;
+    
+}
+
+.BarraLateral a{
+    margin: 50px 0 50px 10px;
+    padding: 8px 0 8px 0;
+
+    width: 200px;
+
+    color: #5c5c5c;
+
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+
+    display: block;
+    
+    text-align: center;
+    text-decoration: none;
+    list-style: none;
+    
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.fas{
+    margin: 5px;
+    font-size: 45px;
+}
+
+.select {
+    background-color: rgb(7, 7, 7);
+    color: #ffffff !important;    
+
+}
+
+.sesion {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    color:black !important;
+    background-color: rgba(204, 17, 57, 0.808);
+    color: #000000;    
+}
+
+.BarraLateral a:hover{
+    list-style: none;
+
+    background-color: rgba(165, 165, 165, 0.438);
+    color: #000000;    
+
+    box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);
+    transition: all ease 0.5s;
+}
+
+.cubo {
+    width: 480px;
+    height: 350px;
+    border: 1px;
+    border-style: solid;
+    border-color: #f5060600;
+    background-color: #ffffff;
+    border-radius:5%;
+    margin: 5px;
+    margin-top: 10px;
+}
+.cubo2 {
+    width: 510px;
+    height: 350px;
+    background-color: #ffffff;
+    border: 1px;
+    border-style: solid;
+    border-color: #f5060600;
+    border-radius:5%;
+    margin: 5px;
+    margin-top: 10px;
+}
+.cubo3 {
+    width: 480px;
+    height: 300px;
+    background-color: #ffffff;
+    border: 1px;
+    border-style: solid;
+    border-color: #f5060600;
+    border-radius:5%;
+    margin: 5px;
+    margin-bottom: 0px;
+}
+.cubo4 {
+    width: 510px;
+    height: 300px;
+    border: 1px;
+    border-style: solid;
+    border-color: #f5060600;
+    background-color: #ffffff;
+    border-radius:5%;
+    margin: 5px;    
+    margin-bottom: 0px;
+}
+
+.fondo {
+    position:absolute; 
+    width: 100px; 
+    height: 100px; 
+    top: 0;
+    background-color: rgb(219, 131, 15);
+    z-index: -1;
+}
